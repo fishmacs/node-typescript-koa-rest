@@ -64,6 +64,7 @@
     "koa-jwt": "^3.3.2",
     "koa-router": "^7.4.0",
     "koa-swagger-decorator": "^1.5.16",
+    "parse-database-url": "^0.3.0",
     "pg": "^7.4.3",
     "pg-connection-string": "^2.0.0",
     "reflect-metadata": "^0.1.12",

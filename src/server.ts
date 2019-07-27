@@ -4,10 +4,10 @@ import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 import cors from '@koa/cors';
 import winston from 'winston';
-import { createConnection } from 'typeorm';
 import 'reflect-metadata';
 import * as PostgressConnectionStringParser from 'pg-connection-string';
 
+import { connect } from './db';
 import { logger } from './logging';
 import { config } from './config';
 import { unprotectedRouter } from './unprotectedRoutes';
@@ -19,22 +19,24 @@ const connectionOptions = PostgressConnectionStringParser.parse(config.databaseU
 // create connection with database
 // note that its not active database connection
 // TypeORM creates you connection pull to uses connections from pull on your requests
-createConnection({
-    type: 'postgres',
-    host: connectionOptions.host,
-    port: connectionOptions.port,
-    username: connectionOptions.user,
-    password: connectionOptions.password,
-    database: connectionOptions.database,
-    synchronize: true,
-    logging: false,
-    entities: [
-       'dist/entity/**/*.js'
-    ],
-    extra: {
-        ssl: config.dbsslconn, // if not development, will use SSL
-    }
-}).then(async connection => {
+connect(
+  // {
+  //   type: 'postgres',
+  //   host: connectionOptions.host,
+  //   port: connectionOptions.port,
+  //   username: connectionOptions.user,
+  //   password: connectionOptions.password,
+  //   database: connectionOptions.database,
+  //   synchronize: true,
+  //   logging: false,
+  //   entities: [
+  //      'dist/entity/**/*.js'
+  //   ],
+  //   extra: {
+  //       ssl: config.dbsslconn, // if not development, will use SSL
+  //   }
+  // }
+).then(async connection => {
 
     const app = new Koa();
 
