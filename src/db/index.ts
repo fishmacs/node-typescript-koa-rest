@@ -4,10 +4,17 @@ import parseDbUrl from 'parse-database-url'
 import { config } from '../config'
 
 export function connect() {
-  let connOptions = Object.assign(parseDbUrl(config.databaseUrl), {
+  const opt = parseDbUrl(config.databaseUrl)
+  let connOptions = {
+    type: opt.driver,
+    host: opt.host,
+    port: opt.port,
+    database: opt.database,
+    username: opt.user,
+    password: opt.password,
     entities: [
       'dist/entity/**/*.js'
     ]
-  })
+  }
   return createConnection(connOptions)
 }
