@@ -12,6 +12,7 @@ export function connect() {
     database: opt.database,
     username: opt.user,
     password: opt.password,
+    logging: true,
     entities: [
       'dist/entity/**/*.js'
     ]
