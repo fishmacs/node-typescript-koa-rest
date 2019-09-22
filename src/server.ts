@@ -16,7 +16,6 @@ import { protectedRouter } from './protectedRoutes';
 // note that its not active database connection
 // TypeORM creates you connection pull to uses connections from pull on your requests
 connect().then(async connection => {
-
     const app = new Koa();
 
     // Provides important security headers to make your app more secure
