@@ -7,10 +7,11 @@ import winston from 'winston';
 import 'reflect-metadata';
 
 import { connect } from './db';
-import { logger } from './logging';
+import { logger } from './logger';
 import { config } from './config';
 import { unprotectedRouter } from './unprotectedRoutes';
 import { protectedRouter } from './protectedRoutes';
+import { cron } from "./cron";
 
 // create connection with database
 // note that its not active database connection
@@ -38,11 +39,14 @@ connect().then(async connection => {
     // do not protect swagger-json and swagger-html endpoints
     app.use(jwt({ secret: config.jwtSecret }).unless({ path: [/^\/swagger-/] }));
 
-    // these routes are protected by the JWT middleware, also include middleware to respond with "Method Not Allowed - 405".
+    // These routes are protected by the JWT middleware, also include middleware to respond with "Method Not Allowed - 405".
     app.use(protectedRouter.routes()).use(protectedRouter.allowedMethods());
+
+    // Register cron job to do any action needed
+    cron.start();
 
     app.listen(config.port);
 
     console.log(`Server running on port ${config.port}`);
 
-}).catch(error => console.log('TypeORM connection error: ', error));
+}).catch((error: string) => console.log("TypeORM connection error: ", error));
