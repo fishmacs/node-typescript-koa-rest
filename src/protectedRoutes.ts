@@ -19,6 +19,8 @@ protectedRouter.swagger({
 });
 
 // mapDir will scan the input dir, and automatically call router.map to all Router Class
-protectedRouter.mapDir(__dirname);
+protectedRouter.mapDir(__dirname, {
+  ignore: ["tests"]
+});
 
 export { protectedRouter };
