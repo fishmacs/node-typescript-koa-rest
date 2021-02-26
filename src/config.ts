@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { ConnectionOptions } from 'typeorm';
+import { ConnectionOptions } from "typeorm";
 
 dotenv.config({ path: ".env" });
 
@@ -26,8 +26,8 @@ const config: Config = {
 };
 
 const dbConfig: ConnectionOptions = {
-  type: 'mongodb',
-  host: 'localhost',
-}
+  type: "mongodb",
+  host: "localhost",
+};
 
 export { config, dbConfig };
